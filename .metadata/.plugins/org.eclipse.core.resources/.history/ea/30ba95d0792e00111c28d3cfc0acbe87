@@ -1,0 +1,10 @@
+package com.syed.fds.dto;
+
+public class UserRegisterRequest {
+
+	private String fullname;
+	private String username;
+	private String email;
+	private String password;
+	
+}

@@ -1,0 +1,15 @@
+package com.syed.fds.repository;
+
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.syed.fds.entity.FinancialRecord;
+import java.util.List;
+
+
+public interface FinancialRecordRepository extends JpaRepository<FinancialRecord, Long> { 
+	
+	Optional<FinancialRecord> findByUser_userId(Long userId);
+
+}

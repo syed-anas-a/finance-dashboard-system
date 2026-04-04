@@ -1,0 +1,13 @@
+package com.syed.fds.enums;
+
+public enum Category {
+	FOOD, 
+	HOUSING,
+	ENTERTAINMENT, 
+	UTILITIES,
+	TRANSPORTATION, 
+	SAVINGS,
+	SHOPPING, 
+	HEALTHCARE,
+	OTHERS
+}

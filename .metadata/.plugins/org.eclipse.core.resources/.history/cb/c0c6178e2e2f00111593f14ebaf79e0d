@@ -1,0 +1,19 @@
+package com.syed.fds.dto.request;
+
+import com.syed.fds.enums.Role;
+
+public class UserCreateRequest {
+
+	private String fullname;
+	private String username;
+	private String email;
+	private String password;
+	private Role role;
+	
+	public UserCreateRequest() {
+		// TODO Auto-generated constructor stub
+	}
+
+	
+	
+}

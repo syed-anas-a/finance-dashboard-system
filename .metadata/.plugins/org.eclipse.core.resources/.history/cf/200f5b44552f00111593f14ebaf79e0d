@@ -1,0 +1,9 @@
+package com.syed.fds.dto.request;
+
+import com.syed.fds.enums.UserStatus;
+
+public class ChangeStatusRequest {
+
+	private UserStatus status;
+	
+}

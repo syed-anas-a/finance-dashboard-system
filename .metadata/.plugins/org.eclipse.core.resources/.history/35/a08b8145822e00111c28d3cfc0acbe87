@@ -1,0 +1,5 @@
+package com.syed.fds.config;
+
+public class SecurityConfig {
+
+}

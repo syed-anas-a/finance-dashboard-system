@@ -1,0 +1,111 @@
+package com.syed.fds.entity;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import com.syed.fds.enums.Category;
+import com.syed.fds.enums.Type;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "transaction")
+public class Transaction {
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long id;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
+	private User user;
+	
+	@Column(name = "amount", nullable = false)
+	private BigDecimal amount;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "type", nullable = false)
+	private Type type;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "category", nullable = false)
+	private Category category = Category.OTHERS;
+	
+	@Column(name = "createdAt", nullable = false)
+	private LocalDateTime createdAt = LocalDateTime.now();
+	
+	@Column(name = "description")
+	private String description;
+	
+	public Transaction() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Transaction(Long id, User user, BigDecimal amount, Type type, Category category,
+		LocalDateTime createdAt, String description) {
+		super();
+		this.id = id;
+		this.user = user;
+		this.amount = amount;
+		this.type = type;
+		this.category = category;
+		this.createdAt = createdAt;
+		this.description = description;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public BigDecimal getAmount() {
+		return amount;
+	}
+
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
+	}
+
+	public Type getType() {
+		return type;
+	}
+
+	public void setType(Type type) {
+		this.type = type;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+}

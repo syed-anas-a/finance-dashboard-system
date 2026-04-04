@@ -1,0 +1,14 @@
+package com.syed.fds.service;
+
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.stereotype.Service;
+
+@Service
+public class AuthService {
+
+	private final AuthenticationManager authManager;
+	public AuthService(AuthenticationManager authManager) {
+		// TODO Auto-generated constructor stub
+		this.authManager = authManager;
+	}
+}

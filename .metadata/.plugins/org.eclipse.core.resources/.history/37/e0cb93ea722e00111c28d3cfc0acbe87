@@ -1,0 +1,5 @@
+package com.syed.fds.entity;
+
+public enum Category {
+
+}

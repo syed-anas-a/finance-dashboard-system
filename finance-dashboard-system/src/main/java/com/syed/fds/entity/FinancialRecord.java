@@ -1,0 +1,124 @@
+package com.syed.fds.entity;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import com.syed.fds.enums.TransactionCategory;
+import com.syed.fds.enums.TransactionType;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "financial_record")
+public class FinancialRecord {
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long id;
+	
+	@ManyToOne
+	@JoinColumn(name = "created_by")
+	private User createdBy;
+	
+	@Column(name = "amount", nullable = false)
+	private BigDecimal amount;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "type", nullable = false)
+	private TransactionType type;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "category", nullable = false)
+	private TransactionCategory category = TransactionCategory.OTHERS;
+	
+	@Column(name = "createdAt", nullable = false)
+	private LocalDateTime createdAt = LocalDateTime.now();
+	
+	@Column(name = "date", nullable = false)
+	private LocalDate date = LocalDate.now();
+	
+	@Column(name = "description")
+	private String description;
+	
+	public FinancialRecord() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public FinancialRecord(Long id, User createdBy, BigDecimal amount, TransactionType type,
+			TransactionCategory category, LocalDateTime createdAt, LocalDate date, String description) {
+		super();
+		this.id = id;
+		this.createdBy = createdBy;
+		this.amount = amount;
+		this.type = type;
+		this.category = category;
+		this.createdAt = createdAt;
+		this.date = date;
+		this.description = description;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public User getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(User createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public BigDecimal getAmount() {
+		return amount;
+	}
+
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
+	}
+
+	public TransactionType getType() {
+		return type;
+	}
+
+	public void setType(TransactionType type) {
+		this.type = type;
+	}
+
+	public TransactionCategory getCategory() {
+		return category;
+	}
+
+	public void setCategory(TransactionCategory category) {
+		this.category = category;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public LocalDate getDate() {
+		return date;
+	}
+
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+}

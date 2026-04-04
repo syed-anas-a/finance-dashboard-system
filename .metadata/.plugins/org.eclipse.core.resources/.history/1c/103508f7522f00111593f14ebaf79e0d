@@ -1,0 +1,93 @@
+package com.syed.fds.service;
+
+
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.syed.fds.dto.request.UpdateUserRequest;
+import com.syed.fds.dto.response.UserResponse;
+import com.syed.fds.dto.request.CreateUserRequest;
+import com.syed.fds.entity.User;
+import com.syed.fds.repository.UserRepository;
+
+@Service
+public class UserService {
+	
+	private final UserRepository userRepository;
+	private final PasswordEncoder passwordEncoder;
+	private final UserResponse userResponse;
+	
+	public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserResponse userResponse) {
+		this.userRepository = userRepository;
+		this.passwordEncoder = passwordEncoder;
+		this.userResponse = userResponse;
+	}
+	
+	public User createUser(CreateUserRequest userRequest) {
+		
+		if(userRepository.findByEmail(userRequest.getEmail()).isPresent()) {
+			throw new RuntimeException("Email already exists");
+		}
+		if(userRepository.findByUsername(userRequest.getUsername()).isPresent()) {
+			throw new RuntimeException("Username already exists");
+		}
+		
+		// Create user object
+		User user = new User();
+		user.setFullname(userRequest.getFullname());
+		user.setUsername(userRequest.getUsername());
+		user.setEmail(userRequest.getEmail());
+		user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+		user.setRole(userRequest.getRole());
+		
+		return userRepository.save(user);
+		
+	}
+	
+	public List<UserResponse> getAllUsers() {
+		
+		return userRepository.findAll()
+				.stream()
+				.map((user) -> mapToResponse(user))
+				.collect(Collectors.toList()); 
+		
+	}
+	
+	private UserResponse mapToResponse(User user) {
+		UserResponse response = new UserResponse();
+		response.setId(user.getId());
+		response.setFullname(user.getFullname());
+		response.setUsername(user.getUsername());
+		response.setEmail(user.getEmail());
+		response.setRole(user.getRole());
+		response.setStatus(user.getStatus());
+		response.setCreatedAt(user.getCreatedAt());
+		
+		return response;
+	}
+	
+	public Map<String, Object> updateUser(Long id, UpdateUserRequest updateRequest) {
+		
+		User user = userRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("User not found!!"));
+		
+		user.setUsername(updateRequest.getUsername());
+		user.setEmail(updateRequest.getEmail());
+		
+		return Map.of("message", "User updated successfully", "username", user.getUsername(), "userEmail", user.getEmail()); 
+		
+	}
+
+	public Map<String, Object> deleteUser(Long id) {
+		User user = userRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("User does not exist!!"));
+		userRepository.delete(user);
+		return Map.of("message", "User deleted successfully", "username", user.getUsername());
+		
+	}
+
+}

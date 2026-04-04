@@ -1,0 +1,16 @@
+1775123959630	Rename type 'UserRegisterRequest'
+1775128879512	Rename compilation unit 'UserController.java'
+1775128932461	Rename type 'UserService'
+1775129531800	Delete element
+1775132003743	Rename compilation unit 'SecurityConfig.java'
+1775134438269	Rename type 'AdminController'
+1775134452354	Rename type 'AdminService'
+1775200949292	Delete element
+1775200953972	Delete element
+1775201074090	Delete element
+1775203105704	Rename type 'Status'
+1775203143887	Rename type 'Type'
+1775203160411	Rename type 'Category'
+1775205962823	Rename compilation unit 'UserLoginRequest.java'
+1775214569126	Rename type 'UserCreateRequest'
+1775245097011	Rename type 'Transaction'

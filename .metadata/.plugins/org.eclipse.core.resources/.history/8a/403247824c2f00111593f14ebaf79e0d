@@ -1,0 +1,13 @@
+package com.syed.fds.dto.request;
+
+import jakarta.validation.constraints.NotNull;
+
+public class UpdateUserRequest {
+	
+	@NotNull(message = "Username cannot be null")
+	String username;
+	
+	@NotNull(message = "Email cannot be null")
+	String email;
+	
+}

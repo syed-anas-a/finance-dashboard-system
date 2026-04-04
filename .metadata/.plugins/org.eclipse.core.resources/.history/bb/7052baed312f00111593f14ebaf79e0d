@@ -1,0 +1,18 @@
+package com.syed.fds.security;
+
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import com.syed.fds.repository.UserRepository;
+
+public class CustomUserDetailsService implements UserDetailsService {
+	
+	private UserRepository userRepository;
+	
+	@Override
+	public UserDetails loadByUsername(String username) throws UsernameNotFoundException {
+		
+	}
+
+}

@@ -1,0 +1,9 @@
+package com.syed.fds.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.syed.fds.entity.User;
+
+public interface UserRepository extends JpaRepository<User, Long> {
+
+}

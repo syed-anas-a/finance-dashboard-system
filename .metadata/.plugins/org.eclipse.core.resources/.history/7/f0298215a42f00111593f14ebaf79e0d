@@ -1,0 +1,20 @@
+package com.syed.fds.dto.response;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import com.syed.fds.enums.TransactionCategory;
+import com.syed.fds.enums.TransactionType;
+
+public class RecordResponse {
+	
+	private Long id;
+	private BigDecimal amount;
+	private String createdBy;
+	private TransactionType type;
+	private TransactionCategory category;
+	private LocalDate date;
+	private LocalDateTime createdAt;
+
+}

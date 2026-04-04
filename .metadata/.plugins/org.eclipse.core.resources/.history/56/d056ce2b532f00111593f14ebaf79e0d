@@ -1,0 +1,75 @@
+package com.syed.fds.controller;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.syed.fds.dto.request.UpdateUserRequest;
+import com.syed.fds.dto.response.UserResponse;
+import com.syed.fds.dto.request.CreateUserRequest;
+import com.syed.fds.entity.User;
+import com.syed.fds.service.UserService;
+
+import jakarta.validation.Valid;
+
+@RestController
+@RequestMapping("/api/users")
+public class UserController {
+	
+	private UserService userService;
+	
+	public UserController(UserService userService) {
+		this.userService = userService;
+	}
+	
+	
+	@PostMapping("/")
+	public ResponseEntity<?> createUser(@RequestBody CreateUserRequest userRegisterRequest) {
+		
+		User newUser = userService.createUser(userRegisterRequest);
+		Map<String, Object> responseBody = new HashMap<>();
+		responseBody.put("message", "User created successfully");
+		responseBody.put("username", newUser.getUsername());
+		responseBody.put("role", newUser.getRole());
+		return ResponseEntity.status(HttpStatus.OK).body(responseBody);
+	}
+	
+	@GetMapping("/")
+	public ResponseEntity<?> getAllUsers() {
+		
+		List<UserResponse> responseBody = userService.getAllUsers();
+		return ResponseEntity.status(HttpStatus.OK).body(responseBody);
+	}
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<?> updateUser(@PathVariable Long id, @Valid @RequestBody UpdateUserRequest updateRequest) {
+		
+		Map<String, Object> responseBody = userService.updateUser(id, updateRequest);
+		return ResponseEntity.status(HttpStatus.OK).body(responseBody);
+		
+	}
+	
+	
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+		
+		Map<String, Object> responseBody = userService.deleteUser(id);
+		return ResponseEntity.status(HttpStatus.OK).body(responseBody);
+		
+	}
+	
+	
+
+}

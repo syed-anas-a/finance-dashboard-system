@@ -1,0 +1,16 @@
+package com.syed.fds.entity;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "user")
+public class User {
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long id;
+	
+	@Column(name = "username", nullable = false)
+	private String username;
+	
+}

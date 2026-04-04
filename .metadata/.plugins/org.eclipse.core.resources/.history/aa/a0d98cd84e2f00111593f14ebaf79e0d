@@ -1,0 +1,5 @@
+package com.syed.fds.exception;
+
+public class GlobalExceptionHandler {
+
+}

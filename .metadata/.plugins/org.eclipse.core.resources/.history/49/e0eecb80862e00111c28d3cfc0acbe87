@@ -1,0 +1,8 @@
+package com.syed.fds.dto;
+
+public class UserDeleteRequest {
+	
+	private String username;
+	private String email;
+
+}

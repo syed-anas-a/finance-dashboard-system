@@ -1,0 +1,25 @@
+package com.syed.fds.dto.request;
+
+import com.syed.fds.enums.Role;
+
+import jakarta.validation.constraints.NotBlank;
+
+public class CreateUserRequest {
+
+	@NotBlank
+	private String fullname;
+	@NotBlank
+	private String username;
+	@NotBlank
+	private String email;
+	@NotBlank
+	private String password;
+	private Role role;
+	
+	public CreateUserRequest() {
+		// TODO Auto-generated constructor stub
+	}
+
+	
+	
+}

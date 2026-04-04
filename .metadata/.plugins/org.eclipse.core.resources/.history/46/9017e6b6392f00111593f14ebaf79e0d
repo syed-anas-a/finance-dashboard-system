@@ -1,0 +1,28 @@
+package com.syed.fds.service;
+
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.stereotype.Service;
+
+import com.syed.fds.entity.User;
+import com.syed.fds.repository.UserRepository;
+
+@Service
+public class AuthService {
+
+	private final AuthenticationManager authManager;
+	private final UserRepository userRepository;
+	
+	public AuthService(AuthenticationManager authManager, UserRepository userRepository) {
+		this.authManager = authManager;
+		this.userRepository = userRepository;
+	}
+	
+	public String handleLogin(LoginRequest loginRequest) {
+		authManager.authenticate(
+				new UsernamePasswordAuthenticationFilter(
+						loginRequest.getEm)
+		);
+	}
+	
+}

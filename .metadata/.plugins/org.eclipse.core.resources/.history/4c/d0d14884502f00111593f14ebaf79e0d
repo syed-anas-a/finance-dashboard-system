@@ -1,0 +1,15 @@
+package com.syed.fds.dto.response;
+
+import java.time.LocalDateTime;
+
+import com.syed.fds.enums.Role;
+import com.syed.fds.enums.UserStatus;
+
+public class UserResponse {
+    private Long id;
+    private String username;
+    private String email;
+    private Role role;
+    private UserStatus status;
+    private LocalDateTime createdAt;
+}

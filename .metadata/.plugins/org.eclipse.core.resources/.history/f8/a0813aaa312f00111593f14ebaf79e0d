@@ -1,0 +1,15 @@
+package com.syed.fds.security;
+
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+
+import com.syed.fds.repository.UserRepository;
+
+public class CustomUserDetailsService implements UserDetailsService {
+	
+	private final UserRepository userRepository;
+	
+	@Override
+	public UserDetails loadByUsername
+
+}

@@ -1,0 +1,9 @@
+package com.syed.fds.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.syed.fds.entity.FinancialRecord;
+
+public interface FinancialRecordRepository extends JpaRepository<FinancialRecord, Long> { 
+
+}

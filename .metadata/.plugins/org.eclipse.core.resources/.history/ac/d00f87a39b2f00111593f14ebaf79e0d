@@ -1,0 +1,16 @@
+package com.syed.fds.service;
+
+import org.springframework.stereotype.Service;
+
+import com.syed.fds.repository.FinancialRecordRepository;
+
+@Service
+public class FinancialRecordService {
+	
+	private final FinancialRecordRepository financialRecordRepository;
+	
+	public FinancialRecordService(FinancialRecordRepository financialRecordRepository) {
+		this.financialRecordRepository = financialRecordRepository;
+	}
+
+}

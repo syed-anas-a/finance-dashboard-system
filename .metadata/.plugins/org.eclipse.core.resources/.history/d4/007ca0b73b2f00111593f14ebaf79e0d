@@ -1,0 +1,42 @@
+package com.syed.fds.service;
+
+
+import java.util.Map;
+
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.stereotype.Service;
+
+import com.syed.fds.dto.request.LoginRequest;
+import com.syed.fds.entity.User;
+import com.syed.fds.repository.UserRepository;
+
+@Service
+public class AuthService {
+
+	private final AuthenticationManager authManager;
+	private final UserRepository userRepository;
+	
+	public AuthService(AuthenticationManager authManager, UserRepository userRepository) {
+		this.authManager = authManager;
+		this.userRepository = userRepository;
+	}
+	
+	public Map<String, Object> handleLogin(LoginRequest loginRequest) {
+		
+		String usernameToken = loginRequest.getUsername().isEmpty() ? loginRequest.getEmail() : loginRequest.getUsername();
+		
+		UsernamePasswordAuthenticationToken userCredentials = new UsernamePasswordAuthenticationToken(
+				usernameToken,
+				loginRequest.getPassword()
+		);
+		
+		authManager.authenticate(userCredentials);
+		
+		User user = userRepository.findByEmail(loginRequest.getEmail())
+				.orElseThrow(() -> new RuntimeException("User not found"));
+		
+		return "login successull";
+	}
+	
+}

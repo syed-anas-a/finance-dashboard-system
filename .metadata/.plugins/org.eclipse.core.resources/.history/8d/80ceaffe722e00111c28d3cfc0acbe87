@@ -1,0 +1,9 @@
+package com.syed.fds.entity;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "transaction")
+public class Transaction {
+
+}

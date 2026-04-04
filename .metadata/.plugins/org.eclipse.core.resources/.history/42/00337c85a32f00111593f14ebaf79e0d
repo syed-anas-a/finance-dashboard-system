@@ -1,0 +1,24 @@
+package com.syed.fds.dto.request;
+
+import java.math.BigDecimal;
+
+import com.syed.fds.enums.TransactionCategory;
+import com.syed.fds.enums.TransactionType;
+
+import jakarta.validation.constraints.Positive;
+
+public class UpdateRecordRequest {
+	
+	@Positive(message = "Amount must be greater than zero!!")
+	private BigDecimal amount;
+	
+	
+	private TransactionType type;
+	
+	private TransactionCategory category;
+	
+	private String description; 
+	
+	
+
+}

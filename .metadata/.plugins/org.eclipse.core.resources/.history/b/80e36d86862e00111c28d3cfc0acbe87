@@ -1,0 +1,20 @@
+package com.syed.fds.dto;
+
+public class UserDeleteRequest {
+	
+	private String username;
+	private String email;
+	
+	public UserDeleteRequest() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public UserDeleteRequest(String username, String email) {
+		super();
+		this.username = username;
+		this.email = email;
+	}
+	
+	
+
+}

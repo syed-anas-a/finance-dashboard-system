@@ -1,0 +1,46 @@
+package com.syed.fds.service;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
+
+import com.syed.fds.dto.request.CreateRecordRequest;
+import com.syed.fds.entity.FinancialRecord;
+import com.syed.fds.entity.User;
+import com.syed.fds.exception.ResourceNotFoundException;
+import com.syed.fds.repository.FinancialRecordRepository;
+import com.syed.fds.repository.UserRepository;
+
+@Service
+public class FinancialRecordService {
+	
+	private final FinancialRecordRepository financialRecordRepository;
+	private final UserRepository userRepository;
+	
+	public FinancialRecordService(FinancialRecordRepository financialRecordRepository, UserRepository userRepository) {
+		this.financialRecordRepository = financialRecordRepository;
+		this.userRepository = userRepository;
+	}
+	
+	public Map<String, Object> createRecord(CreateRecordRequest recordRequest) {
+		
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = userRepository.findByUsername(username)
+				.orElseThrow(() -> new ResourceNotFoundException("User not found"));
+		
+		FinancialRecord record = new FinancialRecord();
+		record.setAmount(recordRequest.getAmount());
+		record.setCreatedBy(user);
+		record.setCategory(recordRequest.getCategory());
+		record.setType(recordRequest.getType());
+		record.setDescription(recordRequest.getDescription());
+		financialRecordRepository.save(record);
+		
+		return Map.of("message", " Record created successfully", "Transaction Record Id:", record.getId(), "Transaction Amount:", record.getAmount());
+		
+	}
+	
+
+}

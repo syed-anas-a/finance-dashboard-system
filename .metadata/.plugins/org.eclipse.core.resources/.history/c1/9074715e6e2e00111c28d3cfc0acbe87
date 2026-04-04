@@ -1,0 +1,9 @@
+spring.application.name=finance-dashboard-system
+server.port=8080
+
+# db configs
+spring.datasource.url=${DB_URL}
+spring.datasource.username=${DB_USERNAME}
+spring.datasource.password=${DB_PASSWORD}
+
+spring.jpa.hibernate.ddl-auto=update

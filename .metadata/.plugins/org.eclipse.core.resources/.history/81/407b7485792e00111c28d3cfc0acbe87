@@ -1,0 +1,43 @@
+package com.syed.fds.entity;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.Date;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "transaction")
+public class Transaction {
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long id;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id", nullable = false)
+	private User user;
+	
+	@Column(name = "amount", nullable = false)
+	private BigDecimal amount;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "type", nullable = false)
+	private Type type;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "category", nullable = false)
+	private Category category;
+	
+	@Column(name = "date", nullable = false)
+	private Date date;
+	
+	@Column(name = "createdAt", nullable = false)
+	private LocalDateTime createdAt;
+	
+	@Column(name = "description")
+	private String description;
+	
+	
+	
+}

@@ -1,0 +1,139 @@
+package com.syed.fds.entity;
+
+import java.time.LocalDateTime;
+
+import com.syed.fds.enums.Role;
+import com.syed.fds.enums.UserStatus;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "user")
+public class User {
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long id;
+	
+	@Column(name = "fullname", nullable = false)
+	private String fullname;
+	
+	@Column(name = "username", unique = true, nullable = false)
+	private String username;
+	
+	@Column(name = "email", unique = true, nullable = false)
+	private String email;
+	
+	@Column(name = "password", nullable = false)
+	private String password;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "role", nullable = false)
+	private Role role = Role.VIEWER;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "status")
+	private UserStatus status = UserStatus.ACTIVE;
+	
+	@Column(name="createdAt", nullable = false)
+	private LocalDateTime createdAt = LocalDateTime.now();
+	
+	
+	public User() {
+		// TODO Auto-generated constructor stub
+	}
+
+
+	public User(Long id, String fullname, String username, String email, String password, Role role, UserStatus status,
+			LocalDateTime createdAt) {
+		super();
+		this.id = id;
+		this.fullname = fullname;
+		this.username = username;
+		this.email = email;
+		this.password = password;
+		this.role = role;
+		this.status = status;
+		this.createdAt = createdAt;
+	}
+
+
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	public String getFullname() {
+		return fullname;
+	}
+
+
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
+	}
+
+
+	public String getUsername() {
+		return username;
+	}
+
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+	public Role getRole() {
+		return role;
+	}
+
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+
+	public UserStatus getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(UserStatus status) {
+		this.status = status;
+	}
+
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+	
+}

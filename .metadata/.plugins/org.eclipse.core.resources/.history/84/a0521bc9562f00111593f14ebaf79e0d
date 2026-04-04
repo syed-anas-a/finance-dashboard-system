@@ -1,0 +1,29 @@
+package com.syed.fds.dto.request;
+
+import com.syed.fds.enums.UserStatus;
+
+import jakarta.validation.constraints.NotNull;
+
+public class ChangeStatusRequest {
+
+	@NotNull(message = "status can't be empty")
+	private UserStatus status;
+	
+	public ChangeStatusRequest() {
+		
+	}
+
+	public ChangeStatusRequest(UserStatus status) {
+		super();
+		this.status = status;
+	}
+
+	public UserStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(UserStatus status) {
+		this.status = status;
+	}
+	
+}
