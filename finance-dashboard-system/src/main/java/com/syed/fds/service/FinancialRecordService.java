@@ -1,5 +1,6 @@
 package com.syed.fds.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -12,6 +13,8 @@ import com.syed.fds.dto.request.UpdateRecordRequest;
 import com.syed.fds.dto.response.RecordResponse;
 import com.syed.fds.entity.FinancialRecord;
 import com.syed.fds.entity.User;
+import com.syed.fds.enums.TransactionCategory;
+import com.syed.fds.enums.TransactionType;
 import com.syed.fds.exception.ResourceNotFoundException;
 import com.syed.fds.repository.FinancialRecordRepository;
 import com.syed.fds.repository.UserRepository;
@@ -27,9 +30,15 @@ public class FinancialRecordService {
 		this.userRepository = userRepository;
 	}
 	
-	public List<RecordResponse> getAllRecords() {
+	public List<RecordResponse> getAllRecords(
+			TransactionType type, 
+			TransactionCategory category, 
+			LocalDate from, 
+			LocalDate to) { 
 		
-		List<FinancialRecord> records = financialRecordRepository.findAll();
+		List<FinancialRecord> records = financialRecordRepository
+											.findWithFilters(type, category, from, to);
+		
 		List<RecordResponse> responseBody = records.stream()
 												.map((record) -> mapToResponse(record))
 												.collect(Collectors.toList());

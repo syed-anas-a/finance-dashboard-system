@@ -1,9 +1,12 @@
 package com.syed.fds.repository;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.syed.fds.entity.FinancialRecord;
 import com.syed.fds.enums.TransactionCategory;
@@ -13,10 +16,34 @@ public interface FinancialRecordRepository extends JpaRepository<FinancialRecord
 	
 	List<FinancialRecord> findByCreatedBy_Id(Long id);
 	
-	List<FinancialRecord> findByType(TransactionType type);
 	
-	List<FinancialRecord> findByCategory(TransactionCategory category);
+	@Query("SELECT fr from FinancialRecord fr WHERE " +
+				"(:type IS NULL or fr.type=:type) AND" +
+				"(:category IS NULL or fr.category=:category) AND " +
+				"(:from IS NULL or fr.date>=:from) AND " +
+				"(:to IS NULL or fr.date<=:to)"
+				
+			)
+	List<FinancialRecord> findWithFilters(
+			@Param("type") TransactionType type, 
+			@Param("category") TransactionCategory category,
+			@Param("from") LocalDate from,
+			@Param("to") LocalDate to);
 	
-	List<FinancialRecord> findByDateBetween(LocalDate from, LocalDate to);
+	
+	@Query("SELECT SUM(fr.amount) FROM FinancialRecord fr WHERE fr.type = :type")
+	BigDecimal sumByType(@Param("type") TransactionType type); 
+	
+	
+	@Query("SELECT fr.category, SUM(fr.amount) FROM FinancialRecord fr GROUP BY fr.category")
+	List<Object[]> sumByCategory();
+	
+	
+	@Query("SELECT MONTH(fr.date), SUM(fr.amount) FROM FinancialRecord fr "
+			+ "WHERE fr.type= :type GROUP BY MONTH(fr.date) ORDER BY MONTH(fr.date)")
+	List<Object[]> sumByMonthAndType(@Param("type") TransactionType type);
+	
+	
+	List<FinancialRecord> findTop10ByOrderByDateDesc();
 
 }

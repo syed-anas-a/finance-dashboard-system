@@ -1,5 +1,6 @@
 package com.syed.fds.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -12,11 +13,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.syed.fds.dto.request.CreateRecordRequest;
 import com.syed.fds.dto.request.UpdateRecordRequest;
 import com.syed.fds.dto.response.RecordResponse;
+import com.syed.fds.enums.TransactionCategory;
+import com.syed.fds.enums.TransactionType;
 import com.syed.fds.service.FinancialRecordService;
 
 import jakarta.validation.Valid;
@@ -32,9 +36,14 @@ public class FinancialRecordController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<?> getAllRecords() {
+	public ResponseEntity<?> getAllRecords(
+				@RequestParam(required = false) TransactionType type,
+				@RequestParam(required = false) TransactionCategory category,
+				@RequestParam(required = false) LocalDate from,
+				@RequestParam(required = false) LocalDate to
+			) {
 		
-		List<RecordResponse> responseBody = recordService.getAllRecords();
+		List<RecordResponse> responseBody = recordService.getAllRecords(type, category, from, to);
 		return ResponseEntity.status(HttpStatus.OK).body(responseBody);
 	}
 	

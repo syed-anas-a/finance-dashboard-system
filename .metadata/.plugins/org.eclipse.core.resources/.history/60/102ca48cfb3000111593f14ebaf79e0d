@@ -1,0 +1,76 @@
+package com.syed.fds.service;
+
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.stereotype.Service;
+
+import com.syed.fds.dto.response.DashboardSummaryResponse;
+import com.syed.fds.entity.FinancialRecord;
+import com.syed.fds.enums.TransactionType;
+import com.syed.fds.repository.FinancialRecordRepository;
+
+@Service
+public class DashboardService {
+	
+	private final FinancialRecordRepository financialRecordRepository;
+	
+	public DashboardService(FinancialRecordRepository financialRecordRepository) {
+		this.financialRecordRepository = financialRecordRepository;
+	}	
+	
+	public Map<String, Object> getDashboardSummary() {
+		
+		BigDecimal totalIncome = financialRecordRepository.sumByType(TransactionType.INCOME);
+		BigDecimal totalExpense = financialRecordRepository.sumByType(TransactionType.EXPENSE);
+		BigDecimal netBalance = totalIncome.subtract(totalExpense);
+		List<Object[]> sumByCategory = financialRecordRepository.sumByCategory();
+		List<FinancialRecord> recentActivity = financialRecordRepository.findTop10ByOrderByDateDesc();
+		
+		Map<String, Object> responseBody = mapToResponse(totalIncome, totalExpense, netBalance, sumByCategory, recentActivity);
+		
+		
+//		private static final String[] MONTH_NAMES = {
+//		        "", "January", "February", "March", "April",
+//		        "May", "June", "July", "August", "September",
+//		        "October", "November", "December"
+//		    };
+//
+//		    public DashboardSummaryResponse getSummary() {
+//
+//		        // monthly trends
+//		        List<MonthlyTotal> monthlyTrends = recordRepository.getMonthlyTrends()
+//		            .stream()
+//		            .map(row -> new MonthlyTotal(
+//		                MONTH_NAMES[((Number) row[0]).intValue()],
+//		                (BigDecimal) row[1],
+//		                (BigDecimal) row[2]
+//		            ))
+//		            .collect(Collectors.toList());
+//		
+//		return null;  
+	}
+	
+	private Map<String, Object> mapToResponse(
+				BigDecimal totalIncome, 
+				BigDecimal totalExpense,
+				BigDecimal netBalance,
+				List<Object[]> sumByCategory,
+				List<FinancialRecord> recentActivity
+			) {
+		
+		Map<String, Object> responseBody = new HashMap<>();
+		
+		DashboardSummaryResponse respone = new DashboardSummaryResponse();
+		respone.setTotalIncome(totalIncome);
+		respone.setTotalExpense(totalExpense);
+		respone.setNetBalance(netBalance);
+		respone.setCategoryBreakdown(sumByCategory);
+		respone.setRecentActivity(recentActivity);
+		
+		return null;
+	}
+
+}

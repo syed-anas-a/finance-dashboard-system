@@ -1,0 +1,70 @@
+package com.syed.fds.service;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.stereotype.Service;
+
+import com.syed.fds.dto.response.DashboardSummaryResponse;
+import com.syed.fds.entity.FinancialRecord;
+import com.syed.fds.enums.TransactionType;
+import com.syed.fds.repository.FinancialRecordRepository;
+
+@Service
+public class DashboardService {
+	
+	private final FinancialRecordRepository financialRecordRepository;
+	
+	public DashboardService(FinancialRecordRepository financialRecordRepository) {
+		this.financialRecordRepository = financialRecordRepository;
+	}	
+	
+	public Map<String, Object> getDashboardSummary() {
+		
+		List<Object[]> totalIncome = financialRecordRepository.sumByType(TransactionType.INCOME);
+		List<Object[]> totalExpense = financialRecordRepository.sumByType(TransactionType.EXPENSE);
+		List<Object[]> sumByCategory = financialRecordRepository.sumByCategory();
+		List<FinancialRecord> recentActivity = financialRecordRepository.findTop10ByOrderByDateDesc();
+		
+		Map<String, Object> responseBody = mapToResponse(totalIncome, totalExpense, sumByCategory, recentActivity);
+		
+		
+//		private static final String[] MONTH_NAMES = {
+//		        "", "January", "February", "March", "April",
+//		        "May", "June", "July", "August", "September",
+//		        "October", "November", "December"
+//		    };
+//
+//		    public DashboardSummaryResponse getSummary() {
+//
+//		        // monthly trends
+//		        List<MonthlyTotal> monthlyTrends = recordRepository.getMonthlyTrends()
+//		            .stream()
+//		            .map(row -> new MonthlyTotal(
+//		                MONTH_NAMES[((Number) row[0]).intValue()],
+//		                (BigDecimal) row[1],
+//		                (BigDecimal) row[2]
+//		            ))
+//		            .collect(Collectors.toList());
+//		
+//		return null;  
+	}
+	
+	private Map<String, Object> mapToResponse(
+				List<Object[]> totalIncome, 
+				List<Object[]> totalExpense,
+				List<Object[]> sumByCategory,
+				List<FinancialRecord> recentActivity
+			) {
+		
+		DashboardSummaryResponse respone = new DashboardSummaryResponse();
+		respone.setTotalIncome(Map.of("totalIncome", totalIncome));
+		respone.setTotalExpense(Map.of("totalExpense", totalExpense));
+		respone.setNetBalance(Map.of("netBalance", totalIncome));
+		respone.setTotalIncome(Map.of("totalIncome", totalIncome));
+		respone.setTotalIncome(Map.of("totalIncome", totalIncome));
+		
+		return null;
+	}
+
+}

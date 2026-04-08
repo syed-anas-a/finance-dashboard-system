@@ -1,0 +1,5 @@
+package com.syed.fds.controller;
+
+public class DashboardController {
+
+}

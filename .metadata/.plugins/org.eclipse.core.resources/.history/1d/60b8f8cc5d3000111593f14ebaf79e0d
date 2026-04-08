@@ -1,0 +1,8 @@
+package com.syed.fds.controller;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@RequestMapping("api/dashboard")
+public class DashboardController {
+
+}

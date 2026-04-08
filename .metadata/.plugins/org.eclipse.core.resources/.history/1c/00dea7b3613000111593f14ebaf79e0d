@@ -1,0 +1,43 @@
+package com.syed.fds.repository;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import com.syed.fds.entity.FinancialRecord;
+import com.syed.fds.enums.TransactionCategory;
+import com.syed.fds.enums.TransactionType;
+
+public interface FinancialRecordRepository extends JpaRepository<FinancialRecord, Long> { 
+	
+	List<FinancialRecord> findByCreatedBy_Id(Long id);
+	
+	@Query("SELECT fr from FinancialRecords fr WHERE " +
+				"(:type IS NULL or fr.type=:type) AND" +
+				"(:category IS NULL or fr.category=:category) AND " +
+				"(:from IS NULL or fr.date>=:from) AND " +
+				"(:to IS NULL or fr.date<=:to)"
+			)
+	List<FinancialRecord> findWithFilters(
+			@Param("type") TransactionType type, 
+			@Param("category") TransactionCategory category,
+			@Param("from") LocalDate from,
+			@Param("to") LocalDate to);
+
+}
+
+/**RecordSpecification — type, category, date range as optional query params
+api
+Extend FinancialRecordRepository with JpaSpecificationExecutor
+api
+Add aggregation queries — sumByType, sumByCategory GROUP BY, monthlyTotals
+dashboard
+DashboardSummaryResponse DTO — totalIncome, totalExpenses, netBalance, categoryBreakdown, monthlyTrends, recentTransactions
+dashboard
+DashboardService — DB level aggregation only, no Java loops over all records
+dashboard
+DashboardController — GET /dashboard/summary accessible by all roles
+**/

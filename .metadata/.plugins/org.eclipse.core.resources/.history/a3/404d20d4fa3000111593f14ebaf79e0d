@@ -1,0 +1,79 @@
+package com.syed.fds.dto.response;
+
+import java.util.List;
+import java.util.Map;
+
+public class DashboardSummaryResponse {
+	
+	private Map<String, List<Object[]>> totalIncome;
+	private Map<String, List<Object[]>> totalExpense;
+	private Map<String, List<Object[]>> netBalance;
+	private Map<String, List<Object[]>> categoryBreakdown;
+	private Map<String, List<Object[]>> monthlyTrends;
+	private Map<String, List<Object[]>> recentActivity;
+	
+	public DashboardSummaryResponse() {
+
+	}
+
+	public DashboardSummaryResponse(Map<String, List<Object[]>> totalIncome, Map<String, List<Object[]>> totalExpense,
+			Map<String, List<Object[]>> netBalance, Map<String, List<Object[]>> categoryBreakdown,
+			Map<String, List<Object[]>> monthlyTrends, Map<String, List<Object[]>> recentActivity) {
+		super();
+		this.totalIncome = totalIncome;
+		this.totalExpense = totalExpense;
+		this.netBalance = netBalance;
+		this.categoryBreakdown = categoryBreakdown;
+		this.monthlyTrends = monthlyTrends;
+		this.recentActivity = recentActivity;
+	}
+
+	public Map<String, List<Object[]>> getTotalIncome() {
+		return totalIncome;
+	}
+
+	public void setTotalIncome(Map<String, List<Object[]>> totalIncome) {
+		this.totalIncome = totalIncome;
+	}
+
+	public Map<String, List<Object[]>> getTotalExpense() {
+		return totalExpense;
+	}
+
+	public void setTotalExpense(Map<String, List<Object[]>> totalExpense) {
+		this.totalExpense = totalExpense;
+	}
+
+	public Map<String, List<Object[]>> getNetBalance() {
+		return netBalance;
+	}
+
+	public void setNetBalance(Map<String, List<Object[]>> netBalance) {
+		this.netBalance = netBalance;
+	}
+
+	public Map<String, List<Object[]>> getCategoryBreakdown() {
+		return categoryBreakdown;
+	}
+
+	public void setCategoryBreakdown(Map<String, List<Object[]>> categoryBreakdown) {
+		this.categoryBreakdown = categoryBreakdown;
+	}
+
+	public Map<String, List<Object[]>> getMonthlyTrends() {
+		return monthlyTrends;
+	}
+
+	public void setMonthlyTrends(Map<String, List<Object[]>> monthlyTrends) {
+		this.monthlyTrends = monthlyTrends;
+	}
+
+	public Map<String, List<Object[]>> getRecentActivity() {
+		return recentActivity;
+	}
+
+	public void setRecentActivity(Map<String, List<Object[]>> recentActivity) {
+		this.recentActivity = recentActivity;
+	}
+
+}

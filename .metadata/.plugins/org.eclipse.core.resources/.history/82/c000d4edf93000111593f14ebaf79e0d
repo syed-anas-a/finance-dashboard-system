@@ -1,0 +1,22 @@
+package com.syed.fds.dto.response;
+
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
+
+public class DashboardSummaryResponse {
+	
+	private Map<String, List<Object[]>> totalIncome;
+	private Map<String, List<Object[]>> totalExpense;
+	private Map<String, List<Object[]>> netBalance;
+	private Map<String, List<Object[]>> categoryBreakdown;
+	private Map<String, List<Object[]>> monthlyTrends;
+	private Map<String, List<Object[]>> recentActivity;
+	
+	public DashboardSummaryResponse() {
+
+	}
+
+	
+
+}

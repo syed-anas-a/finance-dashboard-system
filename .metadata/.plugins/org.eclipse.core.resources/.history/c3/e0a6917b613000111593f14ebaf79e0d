@@ -1,0 +1,15 @@
+package com.syed.fds.repository;
+
+import java.math.BigDecimal;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import com.syed.fds.entity.FinancialRecord;
+
+public class DashboardSummaryRepository implements JpaRepository<FinancialRecord, Long> {
+	
+	@Query("SUM fr.amount FROM FinancialRecords fr WHERE fr.TransactionType = 'INCOME'")
+	BigDecimal getTotalIncome();
+
+}

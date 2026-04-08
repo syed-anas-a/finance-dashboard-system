@@ -1,0 +1,85 @@
+package com.syed.fds.service;
+
+import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+
+import com.syed.fds.dto.response.DashboardSummaryResponse;
+import com.syed.fds.enums.TransactionType;
+import com.syed.fds.repository.FinancialRecordRepository;
+
+@Service
+public class DashboardService {
+	
+	private final FinancialRecordRepository financialRecordRepository;
+	
+	public DashboardService(FinancialRecordRepository financialRecordRepository) {
+		this.financialRecordRepository = financialRecordRepository;
+	}	
+	
+	private static final String[] MONTH_NAMES = {
+		    "", "January", "February", "March", "April",
+		    "May", "June", "July", "August", "September",
+		    "October", "November", "December"
+		};
+
+	public DashboardSummaryResponse getDashboardSummary() {
+
+	    BigDecimal totalIncome = financialRecordRepository.sumByType(TransactionType.INCOME);
+	    BigDecimal totalExpense = financialRecordRepository.sumByType(TransactionType.EXPENSE);
+	    
+	    totalIncome = totalIncome != null ? totalIncome : BigDecimal.ZERO;
+	    totalExpense = totalExpense != null ? totalExpense : BigDecimal.ZERO;
+	    BigDecimal netBalance = totalIncome.subtract(totalExpense);
+	    
+	    List<Map<String, Object>> categoryBreakdown = financialRecordRepository
+	        .sumByCategory()
+	        .stream()
+	        .map(row -> {
+	            Map<String, Object> map = new LinkedHashMap<>();
+	            map.put("category", row[0].toString());
+	            map.put("total", row[1]);
+	            return map;
+	        })
+	        .collect(Collectors.toList());
+	    
+	    List<Map<String, Object>> monthlyTrends = getMontlyTrends();
+	
+
+	    List<Map<String, Object>> recentActivity = financialRecordRepository
+	        .findTop10ByOrderByDateDesc()
+	        .stream()
+	        .map(record -> {
+	            Map<String, Object> map = new LinkedHashMap<>();
+	            map.put("id", record.getId());
+	            map.put("amount", record.getAmount());
+	            map.put("type", record.getType());
+	            map.put("category", record.getCategory());
+	            map.put("date", record.getDate());
+	            map.put("description", record.getDescription());
+	            return map;
+	        })
+	        .collect(Collectors.toList());
+
+	    DashboardSummaryResponse response = new DashboardSummaryResponse();
+	    response.setTotalIncome(totalIncome);
+	    response.setTotalExpense(totalExpense);
+	    response.setNetBalance(netBalance);
+	    response.setCategoryBreakdown(categoryBreakdown);
+	    response.setMonthlyTrends(monthlyTrends);
+	    response.setRecentActivity(recentActivity);
+
+	    return response;
+	}
+	
+	public List<Map<String, Object>> getMonthlyTrends() {
+		
+	}
+
+}

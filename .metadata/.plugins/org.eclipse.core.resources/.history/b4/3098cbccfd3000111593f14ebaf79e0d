@@ -1,0 +1,81 @@
+package com.syed.fds.service;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+
+import com.syed.fds.dto.response.DashboardSummaryResponse;
+import com.syed.fds.entity.FinancialRecord;
+import com.syed.fds.enums.TransactionType;
+import com.syed.fds.repository.FinancialRecordRepository;
+
+@Service
+public class DashboardService {
+	
+	private final FinancialRecordRepository financialRecordRepository;
+	
+	public DashboardService(FinancialRecordRepository financialRecordRepository) {
+		this.financialRecordRepository = financialRecordRepository;
+	}	
+	
+	private static final String[] MONTH_NAMES = {
+		    "", "January", "February", "March", "April",
+		    "May", "June", "July", "August", "September",
+		    "October", "November", "December"
+		};
+
+		public Map<String, Object> getDashboardSummary() {
+
+		    // totals
+		    BigDecimal totalIncome = financialRecordRepository.sumByType(TransactionType.INCOME);
+		    BigDecimal totalExpense = financialRecordRepository.sumByType(TransactionType.EXPENSE);
+		    totalIncome = totalIncome != null ? totalIncome : BigDecimal.ZERO;
+		    totalExpense = totalExpense != null ? totalExpense : BigDecimal.ZERO;
+		    BigDecimal netBalance = totalIncome.subtract(totalExpense);
+
+		    // category breakdown
+		    List<Map<String, Object>> categoryBreakdown = financialRecordRepository.sumByCategory()
+		        .stream()
+		        .map(row -> {
+		            Map<String, Object> map = new LinkedHashMap<>();
+		            map.put("category", row[0].toString());
+		            map.put("total", row[1]);
+		            return map;
+		        })
+		        .collect(Collectors.toList());
+
+		    // monthly trends
+		    List<Map<String, Object>> monthlyTrends = financialRecordRepository.getMonthlyTrends()
+		        .stream()
+		        .map(row -> {
+		            Map<String, Object> map = new LinkedHashMap<>();
+		            map.put("month", MONTH_NAMES[((Number) row[0]).intValue()]);
+		            map.put("totalIncome", row[1]);
+		            map.put("totalExpense", row[2]);
+		            return map;
+		        })
+		        .collect(Collectors.toList());
+
+		    // recent activity
+		    List<FinancialRecord> recentActivity = financialRecordRepository
+		        .findTop10ByOrderByDateDesc();
+
+		    // assemble response
+		    Map<String, Object> response = new LinkedHashMap<>();
+		    response.put("totalIncome", totalIncome);
+		    response.put("totalExpense", totalExpense);
+		    response.put("netBalance", netBalance);
+		    response.put("categoryBreakdown", categoryBreakdown);
+		    response.put("monthlyTrends", monthlyTrends);
+		    response.put("recentActivity", recentActivity);
+
+		    return response;
+		}
+
+}
