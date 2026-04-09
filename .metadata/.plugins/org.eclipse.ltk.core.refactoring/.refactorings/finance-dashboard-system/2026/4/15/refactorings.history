@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;com.syed.fds.security.AuthUtil&apos; to &apos;JwtUtil&apos;&#x0A;- Original project: &apos;finance-dashboard-system&apos;&#x0A;- Original element: &apos;com.syed.fds.security.AuthUtil&apos;&#x0A;- Renamed element: &apos;com.syed.fds.security.JwtUtil&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;AuthUtil&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.syed.fds.security{AuthUtil.java[AuthUtil" matchStrategy="1" name="JwtUtil" qualified="false" references="true" similarDeclarations="false" stamp="1775666315301" textual="false" version="1.0"/>
+</session>

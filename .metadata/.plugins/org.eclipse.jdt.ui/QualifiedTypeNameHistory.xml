@@ -1,29 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.ResponseBody"/>
-    <fullyQualifiedTypeName name="java.lang.Exception"/>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RestControllerAdvice"/>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.ExceptionHandler"/>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.MethodArgumentNotValidException"/>
-    <fullyQualifiedTypeName name="org.springframework.security.authentication.DisabledException"/>
-    <fullyQualifiedTypeName name="org.springframework.security.authentication.BadCredentialsException"/>
-    <fullyQualifiedTypeName name="org.springframework.boot.context.config.ConfigDataResourceNotFoundException"/>
-    <fullyQualifiedTypeName name="java.lang.RuntimeException"/>
-    <fullyQualifiedTypeName name="com.syed.fds.dto.response.UserResponse"/>
-    <fullyQualifiedTypeName name="com.syed.fds.enums.Role"/>
-    <fullyQualifiedTypeName name="com.syed.fds.enums.UserStatus"/>
-    <fullyQualifiedTypeName name="com.syed.fds.dto.request.ChangeRoleRequest"/>
-    <fullyQualifiedTypeName name="com.syed.fds.dto.request.ChangeStatusRequest"/>
-    <fullyQualifiedTypeName name="jakarta.validation.constraints.NotBlank"/>
-    <fullyQualifiedTypeName name="jakarta.validation.constraints.NotNull"/>
-    <fullyQualifiedTypeName name="jakarta.validation.constraints.Positive"/>
-    <fullyQualifiedTypeName name="java.util.Optional"/>
     <fullyQualifiedTypeName name="jakarta.persistence.Column"/>
     <fullyQualifiedTypeName name="com.syed.fds.repository.UserRepository"/>
-    <fullyQualifiedTypeName name="com.syed.fds.entity.User"/>
     <fullyQualifiedTypeName name="com.syed.fds.service.FinancialRecordService"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PostMapping"/>
-    <fullyQualifiedTypeName name="jakarta.validation.Valid"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestBody"/>
     <fullyQualifiedTypeName name="com.syed.fds.dto.request.CreateRecordRequest"/>
     <fullyQualifiedTypeName name="java.time.LocalDateTime"/>
@@ -60,4 +40,24 @@
     <fullyQualifiedTypeName name="java.util.HashSet"/>
     <fullyQualifiedTypeName name="com.syed.fds.dto.response.DashboardSummaryResponse"/>
     <fullyQualifiedTypeName name="java.math.BigDecimal"/>
+    <fullyQualifiedTypeName name="jakarta.validation.Valid"/>
+    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Value"/>
+    <fullyQualifiedTypeName name="io.jsonwebtoken.security.Keys"/>
+    <fullyQualifiedTypeName name="java.nio.charset.StandardCharsets"/>
+    <fullyQualifiedTypeName name="javax.crypto.SecretKey"/>
+    <fullyQualifiedTypeName name="com.syed.fds.entity.User"/>
+    <fullyQualifiedTypeName name="java.util.Date"/>
+    <fullyQualifiedTypeName name="java.lang.System"/>
+    <fullyQualifiedTypeName name="com.syed.fds.enums.Role"/>
+    <fullyQualifiedTypeName name="com.syed.fds.dto.response.LoginResponse"/>
+    <fullyQualifiedTypeName name="org.springframework.stereotype.Component"/>
+    <fullyQualifiedTypeName name="org.springframework.web.filter.OncePerRequestFilter"/>
+    <fullyQualifiedTypeName name="java.lang.System.Logger"/>
+    <fullyQualifiedTypeName name="com.sun.org.slf4j.internal.LoggerFactory"/>
+    <fullyQualifiedTypeName name="com.sun.org.slf4j.internal.Logger"/>
+    <fullyQualifiedTypeName name="org.slf4j.LoggerFactory"/>
+    <fullyQualifiedTypeName name="com.syed.fds.security.JwtUtil"/>
+    <fullyQualifiedTypeName name="io.jsonwebtoken.Claims"/>
+    <fullyQualifiedTypeName name="io.jsonwebtoken.Jwts"/>
+    <fullyQualifiedTypeName name="io.jsonwebtoken.Jws"/>
 </qualifiedTypeNameHistroy>

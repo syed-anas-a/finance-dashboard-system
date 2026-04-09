@@ -1,0 +1,8 @@
+application-local.properties
+target/
+*.iml
+.idea/
+.git/
+*.md
+src/test/
+.env

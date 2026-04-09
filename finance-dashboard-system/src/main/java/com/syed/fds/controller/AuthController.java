@@ -1,18 +1,22 @@
 package com.syed.fds.controller;
 
+
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.syed.fds.dto.request.LoginRequest;
+import com.syed.fds.dto.response.LoginResponse;
 import com.syed.fds.service.AuthService;
+
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -25,19 +29,32 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest) {
-        try {
-            Map<String, Object> response = authService.handleLogin(loginRequest);
-            return ResponseEntity.ok(response);
-        } catch (BadCredentialsException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body(Map.of("error", "Invalid credentials"));
-        } catch (DisabledException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body(Map.of("error", "Account is inactive"));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(Map.of("error", "Something went wrong"));
-        }
+    public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
+    	
+        LoginResponse loginResponse = authService.handleLogin(loginRequest);
+        
+        Cookie cookie = new Cookie("authToken", loginResponse.getJwtToken());
+        cookie.setHttpOnly(true);
+        cookie.setSecure(false);
+        cookie.setPath("/");
+        cookie.setMaxAge(3600);
+        response.addCookie(cookie);
+           
+        return ResponseEntity.status(HttpStatus.OK).body(loginResponse); 
     }
+    
+    @PostMapping("/logout")
+    public ResponseEntity<?> logoutUser(HttpServletResponse response) {
+    	
+    	Cookie cookie = new Cookie("authToken", null);
+    	cookie.setHttpOnly(true);
+    	cookie.setMaxAge(0);
+    	cookie.setPath("/");
+    	response.addCookie(cookie);
+    	
+    	return ResponseEntity.status(HttpStatus.OK).body(Map.of("message", "Logout Successfull!!"));
+    	
+    }
+   
+    
 }

@@ -1,0 +1,8 @@
+package com.syed.fds.dto.response;
+
+public class LoginResponse {
+	
+	String jwtToken;
+	String userId;
+
+}

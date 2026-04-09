@@ -1,0 +1,5 @@
+DB_URL=jdbc:mysql://localhost:3306/finance_db
+DB_USERNAME=root
+DB_PASSWORD=Root@1234
+
+JWT_SECRET_KEY=ZIbenLo1r42jIo0KPdU7fz+LPwXJ1QtyIdfuMtVY1oM=

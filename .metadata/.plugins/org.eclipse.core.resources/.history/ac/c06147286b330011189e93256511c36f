@@ -1,0 +1,48 @@
+package com.syed.fds.service;
+
+
+import java.util.Map;
+
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.stereotype.Service;
+
+import com.syed.fds.dto.request.LoginRequest;
+import com.syed.fds.dto.response.LoginResponse;
+import com.syed.fds.entity.User;
+import com.syed.fds.repository.UserRepository;
+import com.syed.fds.security.JwtUtil;
+
+@Service
+public class AuthService {
+
+	private final AuthenticationManager authManager;
+	private final UserRepository userRepository;
+	private final JwtUtil jwtUtil;
+	
+	public AuthService(AuthenticationManager authManager, UserRepository userRepository, JwtUtil jwtUtil) {
+		this.authManager = authManager;
+		this.userRepository = userRepository;
+		this.jwtUtil = jwtUtil;
+	}
+	
+	public Map<String, Object> handleLogin(LoginRequest loginRequest) {
+				
+		UsernamePasswordAuthenticationToken userCredentials = new UsernamePasswordAuthenticationToken(
+				loginRequest.getUsername(),
+				loginRequest.getPassword()
+		);
+		
+		authManager.authenticate(userCredentials);
+		
+		User user = userRepository.findByUsername(loginRequest.getUsername())
+				.orElseThrow(() -> new RuntimeException("User not found"));
+		
+		String token = jwtUtil.generateAccessToken(user.getUsername());
+		
+		LoginResponse responseBody = new LoginResponse(user.getUsername(), user.getRole(), token);
+		
+		return Map.of("message", "Login Successfull", "details", responseBody);
+	}
+	
+}
